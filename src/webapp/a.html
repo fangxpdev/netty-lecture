@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>hi</title>
+    <script>
+        var socket;
+
+        if (window.WebSocket) {
+            socket = new WebSocket("ws://localhost:8899/ws");
+
+        }
+
+        socket.onmessage = function (ev) {
+
+            var ta = document.getElementById("responseText");
+            ta.value = ta.value + ev.data + "\n";
+
+        };
+
+        socket.onopen = function () {
+
+            var ta = document.getElementById("responseText");
+            ta.value = "open \n";
+        };
+
+        socket.onclose = function () {
+            var ta = document.getElementById("responseText");
+            ta.value = "close \n";
+        };
+
+
+        function send(value) {
+            if (window.WebSocket) {
+                socket.send(value);
+            }
+        }
+
+    </script>
+</head>
+<body>
+<form onsubmit="return false;">
+    <input type="text" name="message" value="Hello, World!">
+    <input type="button" value="Send Web Socket Data" onclick="send(this.form.message.value)"/>
+    <h3>Output</h3>
+    <textarea id="responseText" style="width:500px;height:300px;"></textarea>
+</form>
+
+</body>
+</html>
