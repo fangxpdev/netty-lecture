@@ -69,8 +69,8 @@ public class NioChatServer {
                             Charset charSet = Charset.forName("utf-8");
                             System.out.println(charSet.decode(byteBuffer).array());
                             for (SocketChannel channel : socketChannelSet) {
-                                channel.write(byteBuffer);
                                 byteBuffer.flip();
+                                channel.write(byteBuffer);
                             }
                         }
                     }
